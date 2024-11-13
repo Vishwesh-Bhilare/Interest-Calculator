@@ -1,16 +1,17 @@
 #include <stdio.h>
 #include <ctype.h>  // For isdigit()
 #include <string.h>  // For strlen()
+#include <stdlib.h>  // For atof and atoi
 
 // Function to validate if the input is a valid number
 int is_valid_number(char *input) {
     int dot_count = 0;
-    
+
     // Check if input is empty
     if (*input == '\0') return 0;
 
     // Handle negative numbers
-    if (*input == '-') input++;
+    if (*input == '-') return 0;
 
     // Iterate through the input and ensure it's a valid number
     while (*input) {
