@@ -19,7 +19,7 @@ int is_valid_number(char *input) {
             dot_count++;
             if (dot_count > 1) return 0;  // invalid if more than one '.'
         } else if (!isdigit(*input)) {
-            return 0;  // nvalid
+            return 0;  // invalid
         }
         input++;
     }
