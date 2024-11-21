@@ -40,7 +40,7 @@ void calculate_interest(float *principal, float rate, float years) {
 int main() {
     char input[100];
     float principal, rate;
-    int years;
+    float years;
 
     // get and validate principal input
     printf("Enter the principal amount: ");
