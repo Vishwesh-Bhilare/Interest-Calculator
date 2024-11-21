@@ -77,7 +77,7 @@ int main() {
     calculate_interest(&principal, rate, years);
 
     // display the result
-    printf("The amount after %f years is: %.2f\n", years, principal);
+    printf("The amount after %.2f years is: %.2f\n", years, principal);
 
     return 0;
 }
