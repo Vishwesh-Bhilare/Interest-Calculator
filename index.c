@@ -68,7 +68,11 @@ int main() {
         scanf("%s", input);  // Read input as a string
     }
     years = atof(input);  // convert string to integer
-    
+    if(years<1)
+    {
+        printf("This calculator only calculates YEARLY compound interest:\n ");
+        return 1;
+    }
     // call the recursive function to calculate compound interest
     calculate_interest(&principal, rate, years);
 
