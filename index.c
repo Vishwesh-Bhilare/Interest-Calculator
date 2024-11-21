@@ -1,29 +1,39 @@
 #include <stdio.h>
-#include <ctype.h>  // For isdigit()
+#include <ctype.h>  // for isdigit()
+#include <string.h>  // for strlen()
+#include <stdlib.h>  // for atof and atoi
 
-// Function to validate if the input is a valid number
+// validate if the input is a valid number
 int is_valid_number(char *input) {
-    // Check if every character in the string is a digit
+    int dot_count = 0;
+
+    // if input is empty
+    if (*input == '\0') return 0;
+
+    // negative numbers
+    if (*input == '-') return 0;
+
+    // ensure every char it a valid
     while (*input) {
-        if (!isdigit(*input) && *input != '.') {
-            return 0;  // Invalid input if non-digit or non-period is found
+        if (*input == '.') {
+            dot_count++;
+            if (dot_count > 1) return 0;  // invalid if more than one '.'
+        } else if (!isdigit(*input)) {
+            return 0;  // invalid
         }
         input++;
     }
-    return 1;  // Valid number if only digits and possibly one period
+
+    return 1;  // valid number if only digits and possibly one '.'
 }
 
-// Recursive function to calculate compound interest
-void calculate_interest(float *principal, float rate, int years) {
-    // Base case: if years is 0, stop recursion
+// function to calculate compound interest (pass by reference)
+void calculate_interest(float *principal, float rate, float years) {
     if (years == 0) {
         return;
     } else {
-        // Update the principal amount based on the interest for this year
         *principal = *principal * (1 + rate / 100);
-        
-        // Recur for the next year
-        calculate_interest(principal, rate, years - 1);
+        calculate_interest(principal, rate, years - 1);  // recur for next year
     }
 }
 
@@ -32,47 +42,38 @@ int main() {
     float principal, rate;
     int years;
 
-    // Get and validate principal input
+    // get and validate principal input
     printf("Enter the principal amount: ");
-    while (1) {
-        fgets(input, sizeof(input), stdin);  // Get input as a string
-        if (is_valid_number(input)) {
-            principal = atof(input);  // Convert string to float
-            break;  // Valid input, break the loop
-        } else {
-            printf("Invalid input. Please enter a valid number for the principal: ");
-        }
+    scanf("%s", input);  // Read input as a string
+    while (!is_valid_number(input)) {
+        printf("Invalid input. Please enter a valid number for the principal: ");
+        scanf("%s", input);  // Read input as a string
     }
+    principal = atof(input);  // Convert string to float
 
-    // Get and validate interest rate input
+    // get and validate interest rate input
     printf("Enter the annual interest rate (in percentage): ");
-    while (1) {
-        fgets(input, sizeof(input), stdin);  // Get input as a string
-        if (is_valid_number(input)) {
-            rate = atof(input);  // Convert string to float
-            break;  // Valid input, break the loop
-        } else {
-            printf("Invalid input. Please enter a valid number for the interest rate: ");
-        }
+    scanf("%s", input);  // Read input as a string
+    while (!is_valid_number(input)) {
+        printf("Invalid input. Please enter a valid number for the interest rate: ");
+        scanf("%s", input);  // Read input as a string
     }
+    rate = atof(input);  // Convert string to float
 
-    // Get and validate the number of years input
+    // get and validate the number of years input
     printf("Enter the number of years: ");
-    while (1) {
-        fgets(input, sizeof(input), stdin);  // Get input as a string
-        if (is_valid_number(input)) {
-            years = atoi(input);  // Convert string to integer
-            break;  // Valid input, break the loop
-        } else {
-            printf("Invalid input. Please enter a valid number for the number of years: ");
-        }
+    scanf("%s", input);  // Read input as a string
+    while (!is_valid_number(input)) {
+        printf("Invalid input. Please enter a valid number for the number of years: ");
+        scanf("%s", input);  // Read input as a string
     }
-
-    // Call the recursive function to calculate compound interest
+    years = atof(input);  // convert string to integer
+    
+    // call the recursive function to calculate compound interest
     calculate_interest(&principal, rate, years);
 
-    // Display the result
-    printf("The amount after %d years is: %.2f\n", years, principal);
-    
+    // display the result
+    printf("The amount after %f years is: %.2f\n", years, principal);
+
     return 0;
 }
