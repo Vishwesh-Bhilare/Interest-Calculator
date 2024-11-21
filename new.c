@@ -68,21 +68,7 @@ int main() {
         scanf("%s", input);  // Read input as a string
     }
     years = atoi(input);  // convert string to integer
-
-    // Edge case: Make sure principal, rate, and years are positive
-    if (principal <= 0) {
-        printf("Principal amount must be greater than zero.\n");
-        return 1;
-    }
-    if (rate < 0) {
-        printf("Interest rate cannot be negative.\n");
-        return 1;
-    }
-    if (years <= 0) {
-        printf("Number of years must be greater than zero.\n");
-        return 1;
-    }
-
+    
     // call the recursive function to calculate compound interest
     calculate_interest(&principal, rate, years);
 
